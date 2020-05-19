@@ -41,9 +41,13 @@ app.post('/product', (req, res) => {
 
 app.put('/product', (req, res) => {
     let sql = "UPDATE product SET product_name='"+req.body.product_name+"', product_price='"+req.body.product_price+"' WHERE product_id="+req.body.id;
+    console.log('req data',req.body);
     let query = conn.query(sql, (err, result) => {
-        if (err) throw err;
-        res.end(JSON.stringify(results));
+        if (err) {
+            console.log(err);
+            throw err;
+        }
+        res.end('Product Updated');
         // res.send('product updated');
     });
 });
@@ -51,8 +55,11 @@ app.put('/product', (req, res) => {
 app.delete('/product', (req, res) => {
     let sql = "DELETE FROM product WHERE product_id="+req.body.product_id+"";
     let query = conn.query(sql, (err, result) => {
-        if (err) throw err;
-        res.end('Record has been deleted!');
+        if (err) {
+            console.log('err',err);
+            throw err;
+        }
+        res.end('Record has been deleted');
         // res.send('product deleted');
     });
 });
